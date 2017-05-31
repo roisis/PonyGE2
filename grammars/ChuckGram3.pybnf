@@ -1,0 +1,19 @@
+#Grammar for creating short melodies playable by chuck
+# Grmmar to create Thread3 - hihat open
+
+
+<return> ::= <pre>L <code>
+
+<pre> ::= .5::second => dur T; T - (now % T) => now; SndBuf buf => Gain g => dac; me.dir() + '"data/hihat-open.wav"' => buf.read; .5 => g.gain;
+
+<code> ::= <line1> ; <line2> ; <line3> ; 
+
+<line1> ::= 0 => buf.pos
+
+<line2> ::= <gain> =>buf.gain 
+<gain> ::=  0.7 | 0.8 | 0.85  | 0.85| 0.88 |  0.9
+
+<line3> ::= <single>|<double>|<double>|<double>|<double>
+<single> ::= 1::T => now
+<double> ::= .5::T => now; <line1>; .5::T => now
+

@@ -1,0 +1,21 @@
+#Grammar for creating short melodies playable by chuck
+# Grmmar to create Thread5 - scale bit
+#[ 0, 2, 4, 7, 9 ] 
+
+<return> ::= <pre>L <code>
+
+<pre> ::= .5::second => dur T; T - (now % T) => now; SinOsc s => dac; .25 => s.gain;  <scale> @=> int scale[];
+<scale> ::= [0,2,4,7,9]|[1,3,8,9,11]|[0,1,2,3,4]|[4,5,7,10,11] 
+
+<code> ::= <line1> ; <line2> ; <line3> ; 
+
+<line1> ::= scale[Math.random2(0,4)] => float freq 
+
+
+<line2> ::= Std.mtof( 21.0 + (Math.random2(0,3)*12 + freq) ) => s.freq
+
+<line3> ::= <dur>::T =>now
+<dur> ::= 0.25 | 0.5 | 0.25 | 0.5
+
+
+

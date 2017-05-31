@@ -25,9 +25,13 @@ def execute_run(seed):
     :return: Nothing.
     """
 
-    exec_str = "python3 ponyge.py " \
-               "--random_seed " + str(seed) + " " + " ".join(sys.argv[1:])
+    #exec_str = "python3 ponyge.py " \
+    #           "--bnf_grammar " + str(seed) + " " + " ".join(sys.argv[1:])
 
+    exec_str = "/Users/roisinloughran/anaconda/envs/lect35/bin/python ponyge.py " \
+               "--grammar_file " + str(seed[0]) + " " "--extra_parameters " + str(seed[1]) + " " + " ".join(sys.argv[1:])
+
+    #sys.argv[1:])
     call(exec_str, shell=True)
 
 
@@ -48,9 +52,26 @@ def execute_runs():
     # Initialise pool of workers.
     pool = Pool(processes=params['CORES'])
 
+
+###
+    instruments = ["kick", "hh", "hhOp", "snH", "Sin1", "Sin2"]
+
+    for run in range(0, 6):
+        gram="ChuckGram" + str(run + 1) + ".pybnf"
+        print("Experiment Grammar: ", gram)
+        #resultsFile = open("../results/ChucK/ResultsFile" + str(run) + ".txt", 'w')
+        #resultsFile.write('Gen \t Ave Fit \t Best Fit \n')
+        opts=[gram, run]
+
+        # Execute a single evolutionary run.
+        results.append(pool.apply_async(execute_run, (opts,)))
+
+
+
+    '''
     for run in range(params['RUNS']):
         # Execute a single evolutionary run.
-        results.append(pool.apply_async(execute_run, (run,)))
+        results.append(pool.apply_async(execute_run, (run,))) '''
 
     for result in results:
         result.get()
@@ -98,6 +119,8 @@ def main():
     # Save spreadsheets and all plots for all runs in the 'EXPERIMENT_NAME'
     # folder.
     parse_stats_from_runs(params['EXPERIMENT_NAME'])
+
+
 
 if __name__ == "__main__":
     main()

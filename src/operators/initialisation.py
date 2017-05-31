@@ -184,6 +184,8 @@ def PI_grow(size):
     """
 
     # Calculate the range of depths to ramp individuals from.
+    #print(params['BNF_GRAMMAR'])
+    print(params['BNF_GRAMMAR'].min_ramp)
     depths = range(params['BNF_GRAMMAR'].min_ramp + 1,
                    params['MAX_INIT_TREE_DEPTH']+1)
     population = []

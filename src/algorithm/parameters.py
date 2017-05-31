@@ -73,7 +73,7 @@ params = {
         # Set the maximum geneome length for initialisation.
         'MAX_INIT_TREE_DEPTH': 10,
         # Set the maximum tree depth for initialisation.
-        'MIN_INIT_TREE_DEPTH': None,
+        'MIN_INIT_TREE_DEPTH': None, # Was None,
         # Set the minimum tree depth for initialisation.
 
         # SELECTION
@@ -184,7 +184,12 @@ params = {
         'RANDOM_SEED': None,
 
         # Reverse Mapping to GE individual:
-        'REVERSE_MAPPING_TARGET': None
+        'REVERSE_MAPPING_TARGET': None,
+
+        # NEw param RUN_NO for ChucK experiments
+        'RUN_NO': 1,
+
+
 }
 
 
@@ -268,6 +273,9 @@ def set_params(command_line_args, create_files=True):
     # NOTE that command line arguments overwrite all previously set parameters.
     params.update(cmd_args)
 
+
+    print("PARAMETERS: GRAMMAR: ", params["GRAMMAR_FILE"]) #REMOVE
+
     if params['LOAD_STATE']:
         # Load run from state.
         from utilities.algorithm.state import load_state
@@ -319,3 +327,5 @@ def set_params(command_line_args, create_files=True):
         # Parse grammar file and set grammar class.
         params['BNF_GRAMMAR'] = grammar.Grammar(path.join("..", "grammars",
                                                 params['GRAMMAR_FILE']))
+
+
